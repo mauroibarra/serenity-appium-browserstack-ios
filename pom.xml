@@ -26,6 +26,7 @@
         <maven.failsafe-plugin.version>3.0.0-M7</maven.failsafe-plugin.version>
         <maven.surefire-plugin.version>3.0.0-M7</maven.surefire-plugin.version>
         <maven.compiler-plugin.version>3.8.1</maven.compiler-plugin.version>
+        <max.attempts.rerun.test>2</max.attempts.rerun.test>
     </properties>
 
     <repositories>
@@ -155,6 +156,7 @@
                     </includes>
                     <parallel>classesAndMethods</parallel>
                     <useUnlimitedThreads>true</useUnlimitedThreads>
+                    <rerunFailingTestsCount>${max.attempts.rerun.test}</rerunFailingTestsCount>
                     <argLine>
                         -javaagent:${com.browserstack:browserstack-java-sdk:jar}
                     </argLine>
@@ -203,7 +205,7 @@
 
     <profiles>
         <profile>
-            <id>sample-test</id>
+            <id>sample-test-1</id>
             <build>
                 <plugins>
                     <plugin>
@@ -223,7 +225,7 @@
             </build>
         </profile>
         <profile>
-            <id>sample-local-test</id>
+            <id>sample-test-2</id>
             <build>
                 <plugins>
                     <plugin>
@@ -232,7 +234,7 @@
                         <version>${maven.failsafe-plugin.version}</version>
                         <configuration>
                             <includes>
-                                <include>com/browserstack/cucumber/LocalTest.java</include>
+                                <include>com/browserstack/cucumber/SampleTestTow.java</include>
                             </includes>
                             <argLine>
                                 -javaagent:${com.browserstack:browserstack-java-sdk:jar}

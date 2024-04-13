@@ -1,6 +1,6 @@
-# serenity-browserstack
+# serenity-appium-browserstack-ios
 
-[Serenity](https://serenity-bdd.info/) Integration with BrowserStack SDK.
+[Serenity](https://serenity-bdd.info/) and [Appium](https://appium.io/) Integration with [Browserstack](https://www.browserstack.com/) SDK.
 
 ![BrowserStack Logo](https://d98b8t1nnulk5.cloudfront.net/production/images/layout/logo-header.png?1469004780)
 
@@ -14,8 +14,8 @@
 * You can setup environment variables for all sample repos (see Notes) or update `serenity.conf` file with your [BrowserStack Username and Access Key](https://www.browserstack.com/accounts/settings)
 
 ### Running your tests
-- To run a sample test, run `mvn verify -P sample-test`
-- To run local tests, run `mvn verify -P sample-local-test`
+- To run a test, run `mvn clean verify -Dbrowserstack.userName=<USER_NAME> -Dbrowserstack.accessKey=<ACCESS_KEY>`
+- To run a test setup in pom.xml, run `mvn verify -P sample-test-1 -Dbrowserstack.userName=<USER_NAME> -Dbrowserstack.accessKey=<ACCESS_KEY`
 
  Understand how many parallel sessions you need by using our [Parallel Test Calculator](https://www.browserstack.com/automate/parallel-calculator?ref=github)
 
@@ -33,48 +33,17 @@ This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow t
     <scope>compile</scope>
 </dependency>
 ```
-* Modify your build plugin to run tests by adding argLine `-javaagent:${com.browserstack:browserstack-java-sdk:jar}` and `maven-dependency-plugin` for resolving dependencies in the profiles `sample-test` and `sample-local-test`.
-```
-            <plugin>
-               <artifactId>maven-dependency-plugin</artifactId>
-                 <executions>
-                   <execution>
-                     <id>getClasspathFilenames</id>
-                       <goals>
-                         <goal>properties</goal>
-                       </goals>
-                   </execution>
-                 </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>${maven.failsafe-plugin.version}</version>
-                <configuration>
-                    <includes>
-                        <include>your_test_filename.java</include>
-                    </includes>
-                    <reuseForks>true</reuseForks>
-                    <argLine>
-                        -javaagent:${com.browserstack:browserstack-java-sdk:jar}
-                    </argLine>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-```
+* Modify your build plugin to run tests by adding argLine `-javaagent:${com.browserstack:browserstack-java-sdk:jar}` and `maven-dependency-plugin` for resolving dependencies 
 * Install dependencies `mvn compile`
 
 ## Notes
 * You can view your test results on the [BrowserStack Automate dashboard](https://www.browserstack.com/automate)
-* You can export the environment variables for the Username and Access Key of your BrowserStack account
-  
-  ```
-  export BROWSERSTACK_USERNAME=<browserstack-username> &&
-  export BROWSERSTACK_ACCESS_KEY=<browserstack-access-key>
-  ```
+* You can modify the retries test in pom.xml change the valor of <max.attempts.rerun.test>2</max.attempts.rerun.test>
+
+
+## Authors and acknowledgment
+
+| [<img src="https://gitlab.com/uploads/-/system/user/avatar/13437423/avatar.png?width=400" width=115><br><sub>Mauro L. Ibarra P.</sub>](https://github.com/mauroibarra) <br/> |
+|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+
+
